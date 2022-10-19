@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <title>Read Text File</title>
+</head>
+  
+<body>
+    <style>
+        .equipo{
+            width: 300px;
+        }
+        #eq1{
+            background-color: antiquewhite;
+        }
+        #eq2{
+            background-color: aquamarine;
+        }
+        #eq3{
+            background-color: cyan;
+        }
+        #eq4{
+            background-color: chartreuse;
+        }
+        #eq5{
+            background-color: cornsilk;
+        }
+        #eq6{
+            background-color: lightcoral;
+        }
+
+    </style>
+    <input type="file" name="inputfile"
+            id="inputfile" >
+    <br>
+    <input type="button" name="inputbutton"
+            id="inputbutton" value="Ver archivo">
+   
+    <pre id="output"></pre>
+    <input type="button" name="crearequiposbutton"
+            id="crearequiposbutton" value="Crear equipos">
+      
+    <script type="text/javascript">
+        var listadoAlumnos = new Array();
+        var texto = "";
+        var index = -1;
+        document.getElementById('inputfile')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+               /** document.getElementById('output')
+                        .textContent=fr.result;
+                    */
+            console.log("Leido :)");
+            texto= fr.result;
+            
+           
+
+            }
+              
+            fr.readAsText(this.files[0]);
+        })
+
+        document.getElementById('inputbutton') .addEventListener('click', function() {
+            document.getElementById('output')
+                        .textContent=texto;
+        })
+
+
+        document.getElementById('crearequiposbutton') .addEventListener('click', function() {
+            
+            const TOTALporEQUIPOS = 5;
+            var textoAlumnos = texto.substr(300, texto.lenght);
+           
+            var ultimoIndice = 0;
+            var tamTexto = textoAlumnos.length;
+
+            console.log("tamTexto: "+ tamTexto);
+
+            while(ultimoIndice < tamTexto){
+                indice = textoAlumnos.indexOf('\n',ultimoIndice);
+                ultimoIndice = indice+1;
+
+                linea = textoAlumnos.substr(ultimoIndice, indice);
+                //console.log(linea);
+
+
+                indiceSeparador = linea.indexOf('|');
+                nombre = linea.substr(0, indiceSeparador);
+                //console.log(nombre);
+                listadoAlumnos.push(nombre);
+
+            }
+            function shuffleArray(inputArray){
+                inputArray.sort(()=> Math.random() - 0.5);
+            }
+            
+
+            shuffleArray(listadoAlumnos);
+            
+            var textoDeSalida="";
+            var numEquipo = 1;
+            textoDeSalida+="<ol>";
+            while(listadoAlumnos.length > 0){
+                textoDeSalida+="<div class='equipo' id='eq"+numEquipo+"' ><h3>Equipo "+numEquipo+"</h3>";
+                for(i=0; i<TOTALporEQUIPOS; i++){
+                    var alumno = listadoAlumnos.pop(); 
+                    if(alumno!=""){
+                        textoDeSalida+="<li>"+alumno+"</li>";
+                    }
+                    
+                }
+                textoDeSalida+="</div>"; 
+                numEquipo+=1;
+
+            }
+            textoDeSalida+="</ol>";
+
+            document.getElementById("salida").innerHTML=textoDeSalida;
+
+        })
+
+
+        
+    </script>
+    <div id="salida"></div>
+</body>
+  
+</html>
+
