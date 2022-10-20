@@ -95,15 +95,21 @@
             function shuffleArray(inputArray){
                 inputArray.sort(()=> Math.random() - 0.5);
             }
-            
-
+            listadoImpactoInformatica = new Array();
+            listadoImpactoInformatica.push("1.1. La sociedad de la información y la sociedad del conocimiento.");
+            listadoImpactoInformatica.push("1.2. Ejemplos y exponentes: las redes sociales, el comercio electrónico, la publicidad en Internet, la creatividad digital, protección de datos, etc.");
+            listadoImpactoInformatica.push("1.3. Nuevos sectores laborales.");
+            listadoImpactoInformatica.push("1.4. Big Data, Internet de las cosas, Inteligencia artificial y robótica.");
+            listadoImpactoInformatica.push("1.5. Aspectos positivos y negativos. Amenazas.");
+            listadoImpactoInformatica.push("1.6. Sostenibilidad.");
+            shuffleArray(listadoImpactoInformatica);
             shuffleArray(listadoAlumnos);
             
-            var textoDeSalida="";
+            var textoDeSalida="<h1>1.1. Analizar y valorar el impacto de las tecnologías de la información y la comunicación en la transformación de la sociedad actual.</h1>";
             var numEquipo = 1;
             textoDeSalida+="<ol>";
             while(listadoAlumnos.length > 0){
-                textoDeSalida+="<div class='equipo' id='eq"+numEquipo+"' ><h3>Equipo "+numEquipo+"</h3>";
+                textoDeSalida+="<div class='equipo' id='eq"+numEquipo+"' ><h2>"+listadoImpactoInformatica.pop()+"</h2><br><h3>Equipo "+numEquipo+"</h3>";
                 for(i=0; i<TOTALporEQUIPOS; i++){
                     var alumno = listadoAlumnos.pop(); 
                     if(alumno!=""){
